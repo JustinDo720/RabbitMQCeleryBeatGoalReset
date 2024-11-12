@@ -114,7 +114,7 @@ Creating a task with the `@shared_task` decorator for our celery instance to pic
 def check_goal_task(duration):
    # Again we're using call_command to run something like:
    # py manage.py check_goal -d 'Daily'
-   call_command('check_goal.py', duration=duration)    
+   call_command('check_goal', duration=duration)    
 ```
 
 ---

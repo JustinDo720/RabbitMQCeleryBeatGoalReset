@@ -13,4 +13,4 @@ def doubled(x):
 
 @shared_task
 def check_goal_task(duration):
-    call_command('check_goal.py', duration=duration)    
+    call_command('check_goal', duration=duration)    

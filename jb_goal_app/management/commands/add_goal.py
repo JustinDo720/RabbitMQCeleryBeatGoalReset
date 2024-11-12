@@ -20,19 +20,13 @@ class Command(BaseCommand):
                 'yearly',
             ]
         
-        compelted_choices = [
-            True, 
-            False
-        ]
-
         for i in range(n):
             fake_goal_name = fake.job()
             duration = random.choice(all_duration_options)
-            completed = random.choice(compelted_choices)
-
-            create_goal = Goals.objects.create(name=fake_goal_name, completed=completed, duration=duration)
+            # It's better to automatically set completed as True because we're testing out our scheduling (cel and cel beat)
+            create_goal = Goals.objects.create(name=fake_goal_name, completed=True, duration=duration)
             create_goal.save()
 
-            self.stdout.write(self.style.SUCCESS(f'{fake_goal_name}-{duration}-{completed} successfully added'))
+            self.stdout.write(self.style.SUCCESS(f'{fake_goal_name}-{duration}-{create_goal.completed} successfully added'))
 
     

@@ -125,27 +125,55 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# You could add multiple 
+# PRODUCTION based schedule
+# CELERY_BEAT_SCHEDULE = {
+#     'reset-daily-goals': {
+#         'task': 'jb_goal_app.tasks.check_goal_task',
+#         'schedule': crontab(hour=0, minute=0),  # Run daily at midnight
+#         'args': ('daily',),
+#     },
+#     'reset-weekly-goals': {
+#         'task': 'jb_goal_app.tasks.check_goal_task',
+#         'schedule': crontab(day_of_week=0, hour=0, minute=0),  # Run weekly on Sunday at midnight
+#         'args': ('weekly',),
+#     },
+#     'reset-monthly-goals': {
+#         'task': 'jb_goal_app.tasks.check_goal_task',
+#         'schedule': crontab(day_of_month=1, hour=0, minute=0),  # Run monthly on the first day of each month at midnight
+#         'args': ('monthly',),
+#     },
+#     'reset-yearly-goals': {
+#         'task': 'jb_goal_app.tasks.check_goal_task',
+#         'schedule': crontab(month_of_year=1, day_of_month=1, hour=0, minute=0),  # Run yearly on Jan 1st at midnight
+#         'args': ('yearly',),
+#     },
+# }
+
+# TESTING schedules (local testing)
 CELERY_BEAT_SCHEDULE = {
-    'reset-daily-goals': {
+    # Run every 10 seconds (for testing "daily" goals reset)
+    'test-reset-daily-goals': {
         'task': 'jb_goal_app.tasks.check_goal_task',
-        'schedule': crontab(hour=0, minute=0),  # Run daily at midnight
-        'args': ('daily',),
+        'schedule': crontab(minute="*/1"),
+        'args': ('Daily',),
     },
-    'reset-weekly-goals': {
+    # Run every 30 seconds (for testing "weekly" goals reset)
+    'test-reset-weekly-goals': {
         'task': 'jb_goal_app.tasks.check_goal_task',
-        'schedule': crontab(day_of_week=0, hour=0, minute=0),  # Run weekly on Sunday at midnight
-        'args': ('weekly',),
+        'schedule': crontab(minute="*/2"),
+        'args': ('Weekly',),
     },
-    'reset-monthly-goals': {
+    # Run every 1 minute (for testing "monthly" goals reset)
+    'test-reset-monthly-goals': {
         'task': 'jb_goal_app.tasks.check_goal_task',
-        'schedule': crontab(day_of_month=1, hour=0, minute=0),  # Run monthly on the first day of each month at midnight
-        'args': ('monthly',),
+        'schedule': crontab(minute="*/3"),
+        'args': ('Monthly',),
     },
-    'reset-yearly-goals': {
+    # Run every 1 minute and 30 seconds (for testing "yearly" goals reset)
+    'test-reset-yearly-goals': {
         'task': 'jb_goal_app.tasks.check_goal_task',
-        'schedule': crontab(month_of_year=1, day_of_month=1, hour=0, minute=0),  # Run yearly on Jan 1st at midnight
-        'args': ('yearly',),
+        'schedule': crontab(minute="*/4"),
+        'args': ('Yearly',),
     },
 }
 
